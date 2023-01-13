@@ -44,5 +44,12 @@ public class Transaction {
 
     @CreationTimestamp
     private Date transactionDate;
+
+
+    public Transaction(int fineAmount, boolean isIssueOperation, TransactionStatus transactionStatus) {
+        this.fineAmount = fineAmount;
+        this.isIssueOperation = isIssueOperation;
+        this.transactionStatus = transactionStatus;
+    }
 }
 

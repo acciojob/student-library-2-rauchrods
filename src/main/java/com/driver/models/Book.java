@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,6 +46,13 @@ public class Book {
     private List<Transaction> transactions;
 
     public Book() {
+    }
+
+    public Book(String name, Genre genre, boolean available) {
+        this.name = name;
+        this.genre = genre;
+        this.available = available;
+        transactions=new ArrayList<>();
     }
 }
 

@@ -1,9 +1,7 @@
 package com.driver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,5 +34,12 @@ public class Author {
     public Author() {
     }
 
+    public Author(String name, String email, int age, String country) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.country = country;
+        booksWritten= new ArrayList<>();
+    }
 }
 
