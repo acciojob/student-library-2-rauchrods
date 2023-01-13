@@ -4,10 +4,12 @@ import com.driver.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
 @Transactional
+@Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     @Modifying
@@ -24,4 +26,5 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     void deleteCustom(int id);
 
     Student findByEmailId(String email);
+
 }

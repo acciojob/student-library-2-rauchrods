@@ -1,7 +1,6 @@
 package com.driver.services;
 
-import com.driver.models.Transaction;
-import com.driver.models.TransactionStatus;
+import com.driver.models.*;
 import com.driver.repositories.BookRepository;
 import com.driver.repositories.CardRepository;
 import com.driver.repositories.TransactionRepository;
@@ -44,6 +43,37 @@ public class TransactionService {
         //If the transaction is successful, save the transaction to the list of transactions and return the id
 
         //Note that the error message should match exactly in all cases
+
+        Book book = bookRepository5.findById(bookId).get();
+        Card card = cardRepository5.findById(cardId).get();
+
+        if(book!=null && card!=null){
+            if(book.isAvailable()==false){
+                throw  new Exception("Book is either unavailable or not present");
+            }
+            if(card.getCardStatus()== CardStatus.DEACTIVATED){
+                throw  new Exception("Card is invalid");
+            }
+            Transaction transaction = new Transaction();
+            transaction.setTransactionStatus(TransactionStatus.SUCCESSFUL);
+            transaction.setIssueOperation(true);
+            transaction.setFineAmount(0);
+            transaction.setBook(book);
+            transaction.setCard(card);
+
+             book.setCard(card);
+             book.setAvailable(false);
+            List<Transaction> bookList = book.getTransactions();
+            bookList.add(transaction);
+            book.setTransactions(bookList);
+
+            List<Book> booklist = card.getBooks();
+            booklist.add(book);
+            card.setBooks(booklist);
+
+             cardRepository5.save(card);
+        }
+
 
        return null; //return transactionId instead
     }
