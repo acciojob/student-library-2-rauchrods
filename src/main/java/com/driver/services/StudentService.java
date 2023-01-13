@@ -21,6 +21,9 @@ public class StudentService {
     @Autowired
     CardRepository cardRepository;
 
+    @Autowired
+    CardService cardService;
+
     public Student getDetailsByEmail(String email){
 
         Student student = studentRepository4.findByEmailId(email);
@@ -35,23 +38,25 @@ public class StudentService {
     }
 
     public void createStudent(Student student){
-        Card card = new Card();
-        card.setCardStatus(CardStatus.ACTIVATED);
+        Card card = cardService.createAndReturn(student);
+
         student.setCard(card);
-        card.setStudent(student);
+//        card.setStudent(student);
         cardRepository.save(card);
     }
 
     public void updateStudent(Student student){
 
-       int id =studentRepository4.updateStudentDetails(student);
+       studentRepository4.updateStudentDetails(student);
     }
 
     public void deleteStudent(int id){
         //Delete student and deactivate corresponding card
         Student student = studentRepository4.findById(id).get();
+        studentRepository4.deleteCustom(id);
         Card card= student.getCard();
-        cardRepository.delete(card);
+        card.setCardStatus(CardStatus.DEACTIVATED);
+        cardRepository.save(card);
 //        studentRepository4.delete(student);
     }
 }

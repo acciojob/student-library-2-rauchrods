@@ -39,7 +39,6 @@ public class Author {
         this.email = email;
         this.age = age;
         this.country = country;
-        booksWritten= new ArrayList<>();
     }
 }
 
