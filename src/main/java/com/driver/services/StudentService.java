@@ -40,9 +40,9 @@ public class StudentService {
     public void createStudent(Student student){
         Card card = cardService.createAndReturn(student);
 
-        student.setCard(card);
+//        student.setCard(card);
 //        card.setStudent(student);
-        cardRepository.save(card);
+//        cardRepository.save(card);
     }
 
     public void updateStudent(Student student){

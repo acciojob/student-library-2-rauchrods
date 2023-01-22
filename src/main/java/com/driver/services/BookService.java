@@ -22,40 +22,35 @@ public class BookService {
     AuthorRepository authorRepository;
 
     public void createBook(Book book){
-              Author author=  authorRepository.findById(book.getAuthor().getId()).get();
-         book.setAuthor(author);
 
-         List<Book> currlist = author.getBooksWritten();
+        int authorId = book.getAuthor().getId();
 
-         currlist.add(book);
-         author.setBooksWritten(currlist);
+        Author author =  authorRepository.findById(authorId).get();
 
-         authorRepository.save(author);
+        //Update the bookList written by Author
+        author.getBooksWritten().add(book);
+
+        //Updated the book
+        book.setAuthor(author);
+        //bookRepository2.save(book);
+        bookRepository2.save(book);
+
+        authorRepository.save(author);
 
     }
 
 
     public List<Book> getBooks(String genre, boolean available, String author){
-        List<Book> books = null; //find the elements of the list by yourself
+         //find the elements of the list by yourself
 
-        if(genre==null && author!=null)
-            books=bookRepository2.findBooksByAuthor(author,available);
-
-        else if(genre!=null && author==null && available)
-        {
-            books=bookRepository2.findBooksByGenre(genre,available);
+        if(genre != null && author != null){
+            return bookRepository2.findBooksByGenreAuthor(genre, author, available);
+        }else if(genre != null){
+            return bookRepository2.findBooksByGenre(genre, available);
+        }else if(author != null){
+            return bookRepository2.findBooksByAuthor(author, available);
+        }else{
+            return bookRepository2.findByAvailability(available);
         }
-        else if(genre!=null && author!=null && !available)
-        {
-            books=bookRepository2.findBooksByGenreAuthor(genre,author,available);
-        }
-        else if(genre!=null && author!=null && available)
-        {
-            books=bookRepository2.findBooksByGenreAuthor(genre,author,available);
-        }
-        else if(genre==null && author==null && available)
-            books=bookRepository2.findByAvailability(available);
-
-        return books;
     }
 }
