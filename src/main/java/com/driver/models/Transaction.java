@@ -42,6 +42,8 @@ public class Transaction {
     @CreationTimestamp
     private Date transactionDate;
 
+    public Transaction() {
+    }
 
     public Transaction(int fineAmount, boolean isIssueOperation, TransactionStatus transactionStatus) {
         this.fineAmount = fineAmount;
