@@ -33,7 +33,7 @@ public class BookService {
         //Updated the book
         book.setAuthor(author);
         //bookRepository2.save(book);
-        bookRepository2.save(book);
+//        bookRepository2.save(book);
 
         authorRepository.save(author);
 

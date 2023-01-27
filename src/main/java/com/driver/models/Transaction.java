@@ -91,6 +91,8 @@ public class Transaction {
         this.fineAmount = fineAmount;
     }
 
+
+
     public boolean isIssueOperation() {
         return isIssueOperation;
     }
